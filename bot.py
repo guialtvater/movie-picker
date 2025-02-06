@@ -68,6 +68,7 @@ async def remover(ctx, *, nome_filme):
 async def random(ctx):
     filmes = database.listar_filmes()  # Pega a lista de filmes do banco
     filmes = list(filmes)
+    print(filmes)
     if filmes:
         filme_escolhido = random.choise(filmes)  # Seleciona o filme aleatóriamente
         database.remover_filme(filme_escolhido)  # Remove do banco
