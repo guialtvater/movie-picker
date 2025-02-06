@@ -1,14 +1,18 @@
 # 🎬 Movie Picker Bot 🎬
 
-Um bot do Discord para escolher filmes de uma lista, armazená-los no **banco de dados PostgreSQL** e garantir que os dados não sejam perdidos, mesmo após reiniciar. Criado para rodar no **Railway**.
+Um bot do Discord para **gerenciar sua lista de filmes**, escolhê-los aleatoriamente e acompanhar o que já foi assistido.  
+Os dados são armazenados de forma **persistente no PostgreSQL**, garantindo que nada se perca, mesmo após reiniciar.  
 
 ---
 
 ## 🚀 **Recursos**
-✅ **Adicionar filmes** a uma lista.  
-✅ **Listar todos os filmes** armazenados.  
-✅ **Escolher um filme** e removê-lo da lista.  
-✅ **Armazenamento persistente** usando PostgreSQL no Railway.  
+✅ **Adicionar filmes** a uma lista com status **"para assistir"**.  
+✅ **Listar os filmes** que ainda não foram assistidos, com numeração.  
+✅ **Escolher um filme automaticamente** e marcá-lo como assistido.  
+✅ **Escolher um filme aleatório** e marcá-lo como assistido.  
+✅ **Marcar um filme como assistido** pelo **número** na lista ou pelo **nome**.  
+✅ **Excluir um filme permanentemente** pelo **número** na lista ou pelo **nome**.  
+✅ **Armazenamento persistente** no **PostgreSQL** (via Railway).  
 ✅ **Rodando 24/7** na nuvem.  
 
 ---
@@ -16,8 +20,8 @@ Um bot do Discord para escolher filmes de uma lista, armazená-los no **banco de
 ## 🔧 **Instalação e Configuração**
 ### **1️⃣ Clonar o repositório**
 ```bash
-git clone https://github.com/guialtvater/movie-picker.git
-cd movie-picker
+git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+cd SEU_REPOSITORIO
 ```
 
 ### **2️⃣ Criar e ativar um ambiente virtual (opcional)**
@@ -81,12 +85,65 @@ No Railway:
 ---
 
 ## 🎮 **Comandos do Bot**
-| Comando         | Descrição                                        |
-|----------------|------------------------------------------------|
-| `!addfilme <nome>` | Adiciona um filme à lista. |
-| `!listar` | Lista todos os filmes armazenados. |
-| `!escolher` | Escolhe o **filme mais antigo** da lista e o remove. |
-| `!remover <nome>` | Remove um filme manualmente pelo nome. |
+| Comando                 | O que faz? |
+|-------------------------|------------|
+| `!addfilme <nome>`      | Adiciona um filme à lista (status: "para assistir"). |
+| `!listar`               | Mostra apenas os filmes **"para assistir"** com numeração. |
+| `!escolher`             | Escolhe o **mais antigo** da lista e marca como assistido. |
+| `!randomfilme`          | Escolhe um **aleatório** da lista e marca como assistido. |
+| `!remover <num/nome>`   | **Marca como assistido** um filme pelo **número na lista** ou pelo **nome**. |
+| `!excluir <num/nome>`   | **Exclui permanentemente** um filme pelo **número na lista** ou pelo **nome**. |
+
+---
+
+## **📌 Como Usar os Novos Comandos?**
+1️⃣ **Listar filmes**:
+   ```
+   !listar
+   ```
+   📜 **Exemplo de saída**:
+   ```
+   📜 Lista de Filmes Para Assistir:
+   1. Matrix
+   2. O Senhor dos Anéis
+   3. Star Wars
+   ```
+
+2️⃣ **Marcar um filme como assistido pelo número**:
+   ```
+   !remover 2
+   ```
+   ✅ **Resposta esperada**:
+   ```
+   ✅ Filme marcado como assistido: O Senhor dos Anéis
+   ```
+
+3️⃣ **Marcar um filme como assistido pelo nome**:
+   ```
+   !remover Matrix
+   ```
+   ✅ **Resposta esperada**:
+   ```
+   ✅ Filme marcado como assistido: Matrix
+   ```
+
+4️⃣ **Excluir um filme pelo número**:
+   ```
+   !excluir 3
+   ```
+   ❌ **Resposta esperada**:
+   ```
+   ❌ Filme removido do banco: Star Wars
+   ```
+
+5️⃣ **Excluir um filme pelo nome**:
+   ```
+   !excluir Matrix
+   ```
+   ❌ **Resposta esperada**:
+   ```
+   ❌ Filme removido do banco: Matrix
+   ```
 
 ---
 
@@ -108,7 +165,7 @@ Se quiser contribuir:
 ---
 
 ## 🏆 **Créditos**
-Criado por Guilherme Altvater ✨  
+Criado por [SEU_NOME] ✨  
 Se precisar de ajuda, me chame no Discord! 📨  
 
 ---
