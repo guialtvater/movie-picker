@@ -166,7 +166,6 @@ Se quiser contribuir:
 
 ## 🏆 **Créditos**
 Criado por Guilherme Altvater ✨  
-Se precisar de ajuda, me chame no Discord! 📨  
 
 ---
 
