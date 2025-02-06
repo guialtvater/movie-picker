@@ -3,10 +3,12 @@ import json
 from discord.ext import commands
 
 # Configuração do bot
-TOKEN = "SEU_TOKEN_AQUI"
+TOKEN = "MTMzNjg5Mjg1ODY3Mzc5MDk3Ng.G6DBEQ.jtjAEJEXbC34Ffb-qbdrBT5APtBX1hMzDxa6fE"
 FILMES_FILE = "filmes.json"
 intents = discord.Intents.default()
-bot = commands.Bot(command_prefix="!", intents=intents)
+intents.message_content = True  # Permite que o bot leia mensagens nos canais
+
+bot = commands.Bot(command_prefix="/", intents=intents)
 
 # Função para carregar os filmes do arquivo JSON
 def carregar_filmes():
@@ -32,7 +34,7 @@ async def escolher(ctx):
         salvar_filmes(filmes)  # Atualiza a lista removendo o escolhido
         await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
     else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `/addfilme`.")
 
 # Comando para adicionar um novo filme
 @bot.command()
@@ -48,7 +50,7 @@ async def listar(ctx):
         lista_filmes = "\n".join([f"{i+1}. {filme}" for i, filme in enumerate(filmes)])
         await ctx.send(f"📜 **Lista de Filmes:**\n{lista_filmes}")
     else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `/addfilme`.")
 
 # Comando para remover um filme pelo nome
 @bot.command()
