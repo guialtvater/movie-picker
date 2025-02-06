@@ -3,6 +3,7 @@ import discord
 import json
 from discord.ext import commands
 import database
+import random
 database.criar_tabela() 
 
 # Configuração do bot
@@ -62,16 +63,14 @@ async def remover(ctx, *, nome_filme):
     database.remover_filme(nome_filme)
     await ctx.send(f"❌ **Filme removido:** {nome_filme}")
 
-import random
-
 # Comando para escolher um filme de maneira aleatória
 @bot.command()
 async def random(ctx):
-    filmes = database.listar_filmes()  # Obtém a lista de filmes do banco
-
+    filmes = database.listar_filmes()  # Pega a lista de filmes do banco
     if filmes:
-        filme_escolhido = random.choice(filmes)  # Escolhe um aleatório
-        await ctx.send(f"🎲 **Filme escolhido aleatoriamente:** {filme_escolhido} 🍿")
+        filme_escolhido = random.choise(filmes)  # Seleciona o filme aleatóriamente
+        database.remover_filme(filme_escolhido)  # Remove do banco
+        await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
     else:
         await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
 
