@@ -1,8 +1,6 @@
-### 📜 **Arquivo `README.md`**
-```markdown
 # 🎬 Movie Picker Bot 🎬
 
-Um bot do Discord para **escolher filmes** de uma lista, armazená-los no **banco de dados PostgreSQL** e garantir que os dados não sejam perdidos, mesmo após reiniciar. Criado para rodar no **Railway**.
+Um bot do Discord para escolher filmes de uma lista, armazená-los no **banco de dados PostgreSQL** e garantir que os dados não sejam perdidos, mesmo após reiniciar. Criado para rodar no **Railway**.
 
 ---
 
