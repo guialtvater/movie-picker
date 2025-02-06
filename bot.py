@@ -65,9 +65,8 @@ async def remover(ctx, *, nome_filme):
 
 # Comando para escolher um filme de maneira aleatória
 @bot.command()
-async def random(ctx):
+async def aleatorio(ctx):
     filmes = database.listar_filmes()  # Pega a lista de filmes do banco
-    print(filmes)
     if filmes:
         filme_escolhido = random.choice(filmes)  # Seleciona o filme aleatóriamente
         database.remover_filme(filme_escolhido)  # Remove do banco
