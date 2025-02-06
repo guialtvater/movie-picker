@@ -48,7 +48,7 @@ async def escolher(ctx):
 @bot.command()
 async def addfilme(ctx, *, nome_filme):
     database.adicionar_filme(nome_filme)
-    await ctx.send(f"✅ **Filme adicionado:** {nome_filme} (Status: Para assistir)")
+    await ctx.send(f"✅ **Filme adicionado:** {nome_filme}")
 
 # Comando para listar os filmes na ordem de exibição
 @bot.command()
@@ -85,6 +85,15 @@ async def randomfilme(ctx):
     filme_escolhido = random.choice(filmes)
     #database.marcar_como_assistido(filme_escolhido)  # Apenas altera o status
     await ctx.send(f"🎲 **Filme escolhido aleatoriamente:** {filme_escolhido} 🍿")
+
+@bot.command()
+async def assistidos(ctx):
+    filmes = database.listar_filmes_assistidos()
+    if filmes:
+        lista_filmes = "\n".join([f"{i+1}. {filme}" for i, filme in enumerate(filmes)])
+        await ctx.send(f"📜 **Lista de Filmes Assistidos:**\n{lista_filmes}")
+    else:
+        await ctx.send("📭 Nenhum filme foi assistido ainda.")
 
 # Evento de inicialização
 @bot.event

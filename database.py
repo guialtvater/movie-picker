@@ -59,6 +59,15 @@ def listar_filmes():
         resetar_conexao()
         return []
 
+def listar_filmes_assistidos():
+    try:
+        cursor.execute("SELECT nome FROM filmes WHERE status = 'assistido'")
+        return [row[0] for row in cursor.fetchall()]
+    except Exception as e:
+        print(f"⚠️ Erro ao listar filmes: {e}")
+        resetar_conexao()
+        return []        
+
 # Remover um filme do banco
 def remover_filme(nome_filme):
     cursor.execute("DELETE FROM filmes WHERE nome = %s", (nome_filme,))
