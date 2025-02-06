@@ -52,8 +52,8 @@ def adicionar_filme(nome_filme):
 # Listar os filmes do banco
 def listar_filmes():
     try:
-        cursor.execute("SELECT nome FROM filmes WHERE status = 'lista'")
-        return [row[0] for row in cursor.fetchall()]
+        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'para assistir' ORDER BY id ASC")
+        return cursor.fetchall()  # Retorna [(id1, "filme1"), (id2, "filme2"), ...]
     except Exception as e:
         print(f"⚠️ Erro ao listar filmes: {e}")
         resetar_conexao()
@@ -69,7 +69,7 @@ def listar_filmes_assistidos():
         return []        
 
 # Remover um filme do banco
-def remover_filme(nome_filme):
+def excluir_filme(nome_filme):
     cursor.execute("DELETE FROM filmes WHERE nome = %s", (nome_filme,))
     conn.commit()
 
@@ -88,4 +88,16 @@ def adicionar_coluna_status():
         conn.commit()
         print("✅ Coluna 'status' adicionada ao banco de dados.")
     except Exception as e:
-        print(f"⚠️ Erro ao adicionar coluna 'status': {e}")    
+        print(f"⚠️ Erro ao adicionar coluna 'status': {e}")
+
+def obter_filme_por_posicao(posicao):
+    try:
+        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'para assistir' ORDER BY id ASC")
+        filmes = cursor.fetchall()
+        if 0 < posicao <= len(filmes):
+            return filmes[posicao - 1]  # Retorna (id, nome)
+        return None
+    except Exception as e:
+        print(f"⚠️ Erro ao obter filme por posição: {e}")
+        resetar_conexao()
+        return None    

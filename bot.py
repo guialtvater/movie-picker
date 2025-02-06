@@ -55,22 +55,41 @@ async def addfilme(ctx, *, nome_filme):
 async def listar(ctx):
     filmes = database.listar_filmes()
     if filmes:
-        lista_filmes = "\n".join([f"{i+1}. {filme}" for i, filme in enumerate(filmes)])
+        lista_filmes = "\n".join([f"{i+1}. {filme[1]}" for i, filme in enumerate(filmes)])
         await ctx.send(f"📜 **Lista de Filmes Para Assistir:**\n{lista_filmes}")
     else:
-        await ctx.send("📭 Nenhum filme para assistir no momento. Adicione novos com `!addfilme`.")
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
 
 # Comando para remover um filme pelo nome
 @bot.command()
-async def remover(ctx, *, nome_filme):
-    database.remover_filme(nome_filme)
-    await ctx.send(f"❌ **Filme removido:** {nome_filme}")
+async def excluir(ctx, *, entrada):
+    if entrada.isdigit():
+        posicao = int(entrada)
+        filme = database.obter_filme_por_posicao(posicao)
+        if filme:
+            database.excluir_filme(filme[1])
+            await ctx.send(f"❌ **Filme removido do banco:** {filme[1]}")
+        else:
+            await ctx.send("❌ Posição inválida. Use `!listar` para ver os números corretos.")
+    else:
+        database.excluir_filme(entrada)
+        await ctx.send(f"❌ **Filme removido do banco:** {entrada}")
 
 # Comando para marcar um filme como assistido
 @bot.command()
-async def assistido(ctx, *, nome_filme):
-    database.marcar_como_assistido(nome_filme)
-    await ctx.send(f"✅ **Filme marcado como assistido:** {nome_filme}")
+async def assistido(ctx, *, entrada):
+    if entrada.isdigit():  # Se o usuário inserir um número
+        posicao = int(entrada)
+        filme = database.obter_filme_por_posicao(posicao)
+        if filme:
+            database.marcar_como_assistido(filme[1])
+            await ctx.send(f"✅ **Filme marcado como assistido:** {filme[1]}")
+        else:
+            await ctx.send("❌ Posição inválida. Use `!listar` para ver os números corretos.")
+    else:  # Se for um nome
+        database.marcar_como_assistido(entrada)
+        await ctx.send(f"✅ **Filme marcado como assistido:** {entrada}")
+
 
 # Comando para escolher um filme de maneira aleatória
 import random
