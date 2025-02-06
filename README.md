@@ -115,17 +115,4 @@ Se precisar de ajuda, me chame no Discord! 📨
 
 ## 📜 **Licença**
 Este projeto é de código aberto sob a licença **MIT**.  
-Sinta-se livre para modificar e usar! 🎬  
-```
-
----
-
-### **📌 O que esse `README.md` cobre?**
-✅ **Descrição do projeto**  
-✅ **Como instalar e rodar localmente**  
-✅ **Como configurar no Railway**  
-✅ **Comandos disponíveis**  
-✅ **Tecnologias usadas**  
-✅ **Contribuição e licença**  
-
-Se quiser personalizar algo (ex: colocar seu nome, repositório correto no GitHub), é só editar! 🚀🔥
+Sinta-se livre para modificar e usar! 🎬
