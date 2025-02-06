@@ -32,7 +32,7 @@ def criar_tabela():
         CREATE TABLE IF NOT EXISTS filmes (
             id SERIAL PRIMARY KEY,
             nome TEXT NOT NULL,
-            status TEXT NOT NULL DEFAULT 'para assistir'
+            status TEXT NOT NULL DEFAULT 'lista'
         )
         """)
         conn.commit()
@@ -52,7 +52,7 @@ def adicionar_filme(nome_filme):
 # Listar os filmes do banco
 def listar_filmes():
     try:
-        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'para assistir' ORDER BY id ASC")
+        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'lista' ORDER BY id ASC")
         return cursor.fetchall()  # Retorna [(id1, "filme1"), (id2, "filme2"), ...]
     except Exception as e:
         print(f"⚠️ Erro ao listar filmes: {e}")
@@ -84,7 +84,7 @@ def marcar_como_assistido(nome_filme):
 
 def adicionar_coluna_status():
     try:
-        cursor.execute("ALTER TABLE filmes ADD COLUMN status TEXT NOT NULL DEFAULT 'para assistir'")
+        cursor.execute("ALTER TABLE filmes ADD COLUMN status TEXT NOT NULL DEFAULT 'lista'")
         conn.commit()
         print("✅ Coluna 'status' adicionada ao banco de dados.")
     except Exception as e:
@@ -92,7 +92,7 @@ def adicionar_coluna_status():
 
 def obter_filme_por_posicao(posicao):
     try:
-        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'para assistir' ORDER BY id ASC")
+        cursor.execute("SELECT id, nome FROM filmes WHERE status = 'lista' ORDER BY id ASC")
         filmes = cursor.fetchall()
         if 0 < posicao <= len(filmes):
             return filmes[posicao - 1]  # Retorna (id, nome)
