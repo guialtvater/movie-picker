@@ -17,7 +17,7 @@ Um bot do Discord para escolher filmes de uma lista, armazená-los no **banco de
 ### **1️⃣ Clonar o repositório**
 ```bash
 git clone https://github.com/guialtvater/movie-picker.git
-cd SEU_REPOSITORIO
+cd movie-picker
 ```
 
 ### **2️⃣ Criar e ativar um ambiente virtual (opcional)**
