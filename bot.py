@@ -3,7 +3,7 @@ import json
 from discord.ext import commands
 
 # Configuração do bot
-TOKEN = "MTMzNjg5Mjg1ODY3Mzc5MDk3Ng.G6DBEQ.jtjAEJEXbC34Ffb-qbdrBT5APtBX1hMzDxa6fE"
+TOKEN = os.getenv("TOKEN")
 FILMES_FILE = "filmes.json"
 intents = discord.Intents.default()
 intents.message_content = True  # Permite que o bot leia mensagens nos canais
