@@ -38,3 +38,11 @@ def remover_filme(nome_filme):
 def marcar_como_assistido(nome_filme):
     cursor.execute("UPDATE filmes SET status = 'assistido' WHERE nome = %s", (nome_filme,))
     conn.commit()
+
+def adicionar_coluna_status():
+    try:
+        cursor.execute("ALTER TABLE filmes ADD COLUMN status TEXT NOT NULL DEFAULT 'para assistir'")
+        conn.commit()
+        print("✅ Coluna 'status' adicionada ao banco de dados.")
+    except Exception as e:
+        print(f"⚠️ Erro ao adicionar coluna 'status': {e}")    

@@ -5,6 +5,7 @@ from discord.ext import commands
 import database
 import random
 database.criar_tabela() 
+database.adicionar_coluna_status()
 
 # Configuração do bot
 TOKEN = os.getenv("TOKEN")
