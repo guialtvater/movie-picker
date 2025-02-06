@@ -76,7 +76,7 @@ async def assistido(ctx, *, nome_filme):
 import random
 
 @bot.command()
-async def randomfilme(ctx):
+async def aleatorio(ctx):
     filmes = database.listar_filmes()
     if not filmes:
         await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
