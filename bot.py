@@ -36,7 +36,7 @@ async def escolher(ctx):
     filmes = database.listar_filmes()  # Pega a lista de filmes do banco
     if filmes:
         filme_escolhido = filmes[0]  # Seleciona o mais antigo (primeiro da lista)
-        database.remover_filme(filme_escolhido)  # Remove do banco
+        #database.remover_filme(filme_escolhido)  # Remove do banco
         await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
     else:
         await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
@@ -69,7 +69,7 @@ async def aleatorio(ctx):
     filmes = database.listar_filmes()  # Pega a lista de filmes do banco
     if filmes:
         filme_escolhido = random.choice(filmes)  # Seleciona o filme aleatóriamente
-        database.remover_filme(filme_escolhido)  # Remove do banco
+        #database.remover_filme(filme_escolhido)  # Remove do banco
         await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
     else:
         await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
