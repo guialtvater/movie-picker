@@ -33,19 +33,21 @@ filmes = carregar_filmes()
 # Comando para escolher o próximo filme (do mais antigo para o mais novo)
 @bot.command()
 async def escolher(ctx):
-    filmes = database.listar_filmes()  # Pega a lista de filmes do banco
-    if filmes:
-        filme_escolhido = filmes[0]  # Seleciona o mais antigo (primeiro da lista)
-        #database.remover_filme(filme_escolhido)  # Remove do banco
-        await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
-    else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+    filmes = database.listar_filmes()
+    if not filmes:
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
+        return
+
+    filme_escolhido = filmes[0]  # Mantém a ordem de adição
+    #database.marcar_como_assistido(filme_escolhido)  # Apenas altera o status
+    await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
+
 
 # Comando para adicionar um novo filme
 @bot.command()
 async def addfilme(ctx, *, nome_filme):
     database.adicionar_filme(nome_filme)
-    await ctx.send(f"✅ **Filme adicionado:** {nome_filme}")
+    await ctx.send(f"✅ **Filme adicionado:** {nome_filme} (Status: Para assistir)")
 
 # Comando para listar os filmes na ordem de exibição
 @bot.command()
@@ -53,9 +55,9 @@ async def listar(ctx):
     filmes = database.listar_filmes()
     if filmes:
         lista_filmes = "\n".join([f"{i+1}. {filme}" for i, filme in enumerate(filmes)])
-        await ctx.send(f"📜 **Lista de Filmes:**\n{lista_filmes}")
+        await ctx.send(f"📜 **Lista de Filmes Para Assistir:**\n{lista_filmes}")
     else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+        await ctx.send("📭 Nenhum filme para assistir no momento. Adicione novos com `!addfilme`.")
 
 # Comando para remover um filme pelo nome
 @bot.command()
@@ -63,16 +65,25 @@ async def remover(ctx, *, nome_filme):
     database.remover_filme(nome_filme)
     await ctx.send(f"❌ **Filme removido:** {nome_filme}")
 
-# Comando para escolher um filme de maneira aleatória
+# Comando para marcar um filme como assistido
 @bot.command()
-async def aleatorio(ctx):
-    filmes = database.listar_filmes()  # Pega a lista de filmes do banco
-    if filmes:
-        filme_escolhido = random.choice(filmes)  # Seleciona o filme aleatóriamente
-        #database.remover_filme(filme_escolhido)  # Remove do banco
-        await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
-    else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+async def assistido(ctx, *, nome_filme):
+    database.marcar_como_assistido(nome_filme)
+    await ctx.send(f"✅ **Filme marcado como assistido:** {nome_filme}")
+
+# Comando para escolher um filme de maneira aleatória
+import random
+
+@bot.command()
+async def randomfilme(ctx):
+    filmes = database.listar_filmes()
+    if not filmes:
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
+        return
+
+    filme_escolhido = random.choice(filmes)
+    #database.marcar_como_assistido(filme_escolhido)  # Apenas altera o status
+    await ctx.send(f"🎲 **Filme escolhido aleatoriamente:** {filme_escolhido} 🍿")
 
 # Evento de inicialização
 @bot.event
