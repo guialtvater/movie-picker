@@ -2,6 +2,8 @@ import os
 import discord
 import json
 from discord.ext import commands
+import database
+database.criar_tabela() 
 
 # Configuração do bot
 TOKEN = os.getenv("TOKEN")
@@ -30,38 +32,35 @@ filmes = carregar_filmes()
 # Comando para escolher o próximo filme (do mais antigo para o mais novo)
 @bot.command()
 async def escolher(ctx):
+    filmes = database.listar_filmes()  # Pega a lista de filmes do banco
     if filmes:
-        filme_escolhido = filmes.pop(0)  # Pega o mais antigo
-        salvar_filmes(filmes)  # Atualiza a lista removendo o escolhido
+        filme_escolhido = filmes[0]  # Seleciona o mais antigo (primeiro da lista)
+        database.remover_filme(filme_escolhido)  # Remove do banco
         await ctx.send(f"🎬 **Filme escolhido:** {filme_escolhido} 🍿")
     else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `/addfilme`.")
+        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
 
 # Comando para adicionar um novo filme
 @bot.command()
 async def addfilme(ctx, *, nome_filme):
-    filmes.append(nome_filme)
-    salvar_filmes(filmes)
+    database.adicionar_filme(nome_filme)
     await ctx.send(f"✅ **Filme adicionado:** {nome_filme}")
 
 # Comando para listar os filmes na ordem de exibição
 @bot.command()
 async def listar(ctx):
+    filmes = database.listar_filmes()
     if filmes:
         lista_filmes = "\n".join([f"{i+1}. {filme}" for i, filme in enumerate(filmes)])
         await ctx.send(f"📜 **Lista de Filmes:**\n{lista_filmes}")
     else:
-        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `/addfilme`.")
+        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
 
 # Comando para remover um filme pelo nome
 @bot.command()
 async def remover(ctx, *, nome_filme):
-    if nome_filme in filmes:
-        filmes.remove(nome_filme)
-        salvar_filmes(filmes)
-        await ctx.send(f"❌ **Filme removido:** {nome_filme}")
-    else:
-        await ctx.send(f"⚠️ O filme **{nome_filme}** não está na lista.")
+    database.remover_filme(nome_filme)
+    await ctx.send(f"❌ **Filme removido:** {nome_filme}")
 
 # Evento de inicialização
 @bot.event
