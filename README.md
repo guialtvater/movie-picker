@@ -20,8 +20,8 @@ Os dados são armazenados de forma **persistente no PostgreSQL**, garantindo que
 ## 🔧 **Instalação e Configuração**
 ### **1️⃣ Clonar o repositório**
 ```bash
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-cd SEU_REPOSITORIO
+git clone https://github.com/guialtvater/movie-picker.git
+cd movie-picker
 ```
 
 ### **2️⃣ Criar e ativar um ambiente virtual (opcional)**
@@ -165,7 +165,7 @@ Se quiser contribuir:
 ---
 
 ## 🏆 **Créditos**
-Criado por [SEU_NOME] ✨  
+Criado por Guilherme Altvater ✨  
 Se precisar de ajuda, me chame no Discord! 📨  
 
 ---
