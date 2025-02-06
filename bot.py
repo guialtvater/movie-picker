@@ -62,6 +62,19 @@ async def remover(ctx, *, nome_filme):
     database.remover_filme(nome_filme)
     await ctx.send(f"❌ **Filme removido:** {nome_filme}")
 
+import random
+
+# Comando para escolher um filme de maneira aleatória
+@bot.command()
+async def random(ctx):
+    filmes = database.listar_filmes()  # Obtém a lista de filmes do banco
+
+    if filmes:
+        filme_escolhido = random.choice(filmes)  # Escolhe um aleatório
+        await ctx.send(f"🎲 **Filme escolhido aleatoriamente:** {filme_escolhido} 🍿")
+    else:
+        await ctx.send("📭 A lista de filmes está vazia. Adicione novos filmes com `!addfilme`.")
+
 # Evento de inicialização
 @bot.event
 async def on_ready():
