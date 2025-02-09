@@ -36,7 +36,7 @@ filmes = carregar_filmes()
 async def escolher(ctx):
     filmes = database.listar_filmes()
     if not filmes:
-        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!add`.")
         return
 
     filme_escolhido = filmes[0]  # Mantém a ordem de adição
@@ -46,7 +46,7 @@ async def escolher(ctx):
 
 # Comando para adicionar um novo filme
 @bot.command()
-async def addfilme(ctx, *, nome_filme):
+async def add(ctx, *, nome_filme):
     database.adicionar_filme(nome_filme)
     await ctx.send(f"✅ **Filme adicionado:** {nome_filme}")
 
@@ -58,7 +58,7 @@ async def listar(ctx):
         lista_filmes = "\n".join([f"{i+1}. {filme[1]}" for i, filme in enumerate(filmes)])
         await ctx.send(f"📜 **Lista de Filmes Para Assistir:**\n{lista_filmes}")
     else:
-        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!add`.")
 
 # Comando para remover um filme pelo nome
 @bot.command()
@@ -98,7 +98,7 @@ import random
 async def aleatorio(ctx):
     filmes = database.listar_filmes()
     if not filmes:
-        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!addfilme`.")
+        await ctx.send("📭 Nenhum filme para assistir. Adicione novos com `!add`.")
         return
 
     filme_escolhido = random.choice(filmes)
